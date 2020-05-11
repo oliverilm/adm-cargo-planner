@@ -113,10 +113,10 @@ function ResponsiveDrawer(props) {
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={classes.anchorOrigin}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={classes.transformOrigin}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -139,10 +139,10 @@ function ResponsiveDrawer(props) {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={classes.anchorOrigin}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={classes.transformOrigin}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -246,7 +246,7 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         {data === null ?
           (
-            <div style={{ width: "100%", height: "100%", flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <div className={classes.loadPage}>
               <Typography variant={"h3"}>No Shipments Were Found.</Typography>
               <div>
                 <Button variant="contained" color="primary"
@@ -278,9 +278,10 @@ ResponsiveDrawer.propTypes = {
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
+  loadPage: { width: "100%", height: "100%", flex: 1, justifyContent: "center", alignItems: "center"},
+  transformOrigin: { vertical: 'top', horizontal: 'right' },
+  anchorOrigin: { vertical: 'top', horizontal: 'right' },
+  root: {display: "flex",},
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
@@ -304,21 +305,11 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  content: {
-    padding: theme.spacing(3),
-  },
+  content: {padding: theme.spacing(3),},
 
-  linkStyle: {
-    textDecoration: "none"
-  },
-  margin: {
-    marginLeft: "3em",
-    color: "#fff"
-  },
-  grow: {
-    flexGrow: 1,
-  },
-
+  linkStyle: {textDecoration: "none"},
+  margin: {marginLeft: "3em", color: "#fff"},
+  grow: {flexGrow: 1,},
   title: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
@@ -349,9 +340,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  inputRoot: {
-    color: 'inherit',
-  },
+  inputRoot: {color: 'inherit',},
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
