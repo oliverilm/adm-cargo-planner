@@ -112,10 +112,8 @@ function ResponsiveDrawer(props) {
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={classes.anchorOrigin}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={classes.transformOrigin}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -138,10 +136,8 @@ function ResponsiveDrawer(props) {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={classes.anchorOrigin}
       id={menuId}
       keepMounted
-      transformOrigin={classes.transformOrigin}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -270,8 +266,6 @@ function ResponsiveDrawer(props) {
 
 const useStyles = makeStyles((theme) => ({
   loadPage: { width: "100%", height: "100%", flex: 1, justifyContent: "center", alignItems: "center"},
-  transformOrigin: { vertical: 'top', horizontal: 'right' },
-  anchorOrigin: { vertical: 'top', horizontal: 'right' },
   root: {display: "flex",},
   drawer: {
     [theme.breakpoints.up("sm")]: {

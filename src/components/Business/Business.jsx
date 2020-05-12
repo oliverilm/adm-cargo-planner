@@ -15,7 +15,7 @@ export default function Business(props) {
 
     useEffect(() => {
         setBox(boxes === null ? "" : boxes)
-    })
+    }, [boxes])
 
     const updateShipment = (e) => {
         setBox(e.target.value)
