@@ -112,10 +112,8 @@ function ResponsiveDrawer(props) {
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={classes.anchorOrigin}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={classes.transformOrigin}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -138,10 +136,8 @@ function ResponsiveDrawer(props) {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={classes.anchorOrigin}
       id={menuId}
       keepMounted
-      transformOrigin={classes.transformOrigin}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >

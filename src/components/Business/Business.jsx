@@ -5,6 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import Paper from '@material-ui/core/Paper';
 import TextField from "@material-ui/core/TextField";
 import shipments from "../../Storage";
+import ShipmentBoxes from "./ShipmentBoxes";
 
 export default function Business(props) {
 
@@ -15,7 +16,7 @@ export default function Business(props) {
 
     useEffect(() => {
         setBox(boxes === null ? "" : boxes)
-    })
+    }, [boxes])
 
     const updateShipment = (e) => {
         setBox(e.target.value)
@@ -55,7 +56,7 @@ export default function Business(props) {
             </div>
 
             <div>
-                <TextField
+                {/*<TextField
                   id="standard-full-width"
                   label="Cargo Boxes"
                   style={styles.cargoBoxes}
@@ -69,7 +70,8 @@ export default function Business(props) {
                       updateShipment(e)
                   }}
                   value={box}
-                />
+                />*/}
+                <ShipmentBoxes shipmentId={id} />
             </div>
         </div>
     )
