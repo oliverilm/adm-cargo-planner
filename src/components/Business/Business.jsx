@@ -3,7 +3,6 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Paper from '@material-ui/core/Paper';
-import TextField from "@material-ui/core/TextField";
 import shipments from "../../Storage";
 import ShipmentBoxes from "./ShipmentBoxes";
 
@@ -12,17 +11,15 @@ export default function Business(props) {
     const { match } = props;
     const { id, name, email, boxes } = getBusinessDetails(match.params.id);
     const [box, setBox] = useState("")
-    const cargoBays = calculateCargoBays(box)
+    const [cargoBays, setCargoBays] = useState(calculateCargoBays(box))
 
     useEffect(() => {
         setBox(boxes === null ? "" : boxes)
-    }, [boxes])
+        setCargoBays(calculateCargoBays(getBusinessDetails(id).boxes))
+    }, [boxes, id])
 
-    const updateShipment = (e) => {
-        setBox(e.target.value)
-        shipments.getShipments()
-          .find(s => s.id === id)
-          .boxes =  e.target.value;
+    const updateCargoBays = () => {
+        setCargoBays(calculateCargoBays(getBusinessDetails(id).boxes))
     }
 
     return (
@@ -71,7 +68,7 @@ export default function Business(props) {
                   }}
                   value={box}
                 />*/}
-                <ShipmentBoxes shipmentId={id} />
+                <ShipmentBoxes shipmentId={id} onShipmentsChange={updateCargoBays} />
             </div>
         </div>
     )

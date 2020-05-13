@@ -35,23 +35,25 @@ const getShipment = (id) => {
 
 /**
  *
- * @param shipment
  * @returns {Array}
+ * @param {String} shipmentId - Provided id for shipment.
  */
-const calculateObjects = (shipment) => {
+const calculateObjects = (shipmentId) => {
   // TODO: handle null values.
-  return shipment.boxes !== null ? shipment.boxes.trim().split(",").map((unit, i) => {
-    if (unit.length > 0) return {key: i, label:parseFloat(unit)}
+  const boxes = getShipment(shipmentId).boxes
+  return boxes !== null ? boxes.trim().split(",").map((unit, i) => {
+    return {key: i, label: parseFloat(unit)}
   }) : []
 }
 
 export default function ChipsArray(props) {
-  const { shipmentId } = props;
+  const { shipmentId, onShipmentsChange } = props;
   const shipment = getShipment(shipmentId)
   const classes = useStyles();
-  const [chipData, setChipData] = useState(calculateObjects(shipment));
+  const [chipData, setChipData] = useState([]);
   const [number, setNumber] = useState(0)
-  useEffect(() => {setChipData(calculateObjects(shipment)); getShipment(shipmentId).boxes = ""}, [shipment])
+
+  useEffect(() => {setChipData(calculateObjects(shipmentId)); getShipment(shipmentId).boxes = shipment.boxes === null ? "" : getShipment(shipmentId).boxes}, [shipment, shipmentId])
 
 
   /**
@@ -62,24 +64,26 @@ export default function ChipsArray(props) {
    */
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
-
     getShipment(shipmentId).boxes = chipData.map(r => {
       return r.label
     }).join()
-    // TODO : update shipments without delay.
-    console.log(getShipment(shipmentId).boxes)
+    onShipmentsChange()
   };
 
   /**
    * Add a number to the shipment string.
    */
-  const handleNumberAdd = () => {
-    let boxesString = chipData !== [] ? chipData.map(r => {
+  const handleNumberAdd = (e) => {
+    e.preventDefault()
+    let boxesString = chipData.length > 0 ? chipData.map(r => {
       return r.label
-    }) : ""
-    getShipment(shipmentId).boxes = `${boxesString},${number}`
-    setChipData(calculateObjects(getShipment(shipmentId)))
+    }) : null
+
+    getShipment(shipmentId).boxes = boxesString !== null ? [boxesString, number].join() : [number].join()
+    setChipData(calculateObjects(shipmentId))
     setNumber(0)
+    onShipmentsChange()
+
   }
 
   /**
@@ -92,6 +96,7 @@ export default function ChipsArray(props) {
   }
 
   return (
+    <form onSubmit={handleNumberAdd}>
     <div className={classes.root}>
       <div className={classes.margin}>
         <Grid container spacing={1} alignItems="flex-end">
@@ -103,10 +108,10 @@ export default function ChipsArray(props) {
           </Grid>
         </Grid>
       </div>
-    <div style={{display: "flex", marginTop: 10,}}>
-      {chipData.map((data) => {
+    <div style={{display: "flex", flexWrap: "wrap", marginTop: 10}}>
+      {chipData.map((data, i) => {
         return (
-          <div key={data.key}>
+          <div key={i}>
             <Chip
               label={data.label}
               onDelete={handleDelete(data)}
@@ -118,5 +123,6 @@ export default function ChipsArray(props) {
       })}</div>
 
     </div>
+    </form>
   );
 }
