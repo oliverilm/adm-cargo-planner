@@ -7,7 +7,6 @@ import shipments from "../../Storage";
 import ShipmentBoxes from "./ShipmentBoxes";
 
 export default function Business(props) {
-
     const { match } = props;
     const { id, name, email, boxes } = getBusinessDetails(match.params.id);
     const [box, setBox] = useState("")
@@ -18,6 +17,9 @@ export default function Business(props) {
         setCargoBays(calculateCargoBays(getBusinessDetails(id).boxes))
     }, [boxes, id])
 
+    /**
+     *  Update cargo bays amount component.
+     */
     const updateCargoBays = () => {
         setCargoBays(calculateCargoBays(getBusinessDetails(id).boxes))
     }

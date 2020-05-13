@@ -25,18 +25,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
+ * Fetch the shipment object by id.
  *
- * @param id
- * @returns {*}
+ * @param {String} id - Provided Id of a shipment
+ * @returns {JSON}
  */
 const getShipment = (id) => {
   return shipments.getShipments().find(s => s.id === id);
 }
 
 /**
+ * Calculates chips from shipment boxes string.
  *
- * @returns {Array}
  * @param {String} shipmentId - Provided id for shipment.
+ * @returns {Array}
  */
 const calculateObjects = (shipmentId) => {
   // TODO: handle null values.
@@ -89,7 +91,7 @@ export default function ChipsArray(props) {
   /**
    * Update state when input field value changes.
    *
-   * @param e
+   * @param e - input event.
    */
   const handleNumberInputChange = (e) => {
     setNumber(e.target.value);
