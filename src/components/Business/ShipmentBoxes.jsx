@@ -98,32 +98,33 @@ export default function ChipsArray(props) {
 
   return (
     <form onSubmit={handleNumberAdd}>
-    <div className={classes.root}>
-      <div className={classes.margin}>
-        <Grid container spacing={1} alignItems="flex-end">
-          <Grid item>
-            <TextField id="input-with-icon-grid" label="With a grid" onChange={handleNumberInputChange} value={number} type={"number"}/>
+      <div className={classes.root}>
+        <div className={classes.margin}>
+          <Grid container spacing={1} alignItems="flex-end">
+            <Grid item>
+              <TextField id="input-with-icon-grid" label="With a grid" onChange={handleNumberInputChange} value={number} type={"number"}/>
+            </Grid>
+            <Grid item>
+              <AddIcon className={"add-button"} onClick={handleNumberAdd} />
+            </Grid>
           </Grid>
-          <Grid item>
-            <AddIcon className={"add-button"} onClick={handleNumberAdd} />
-          </Grid>
-        </Grid>
+        </div>
+        <div style={{display: "flex", flexWrap: "wrap", marginTop: 10}}>
+          {chipData.map((data, i) => {
+            return (
+              <div key={i}>
+                <Chip
+                  label={data.label}
+                  onDelete={handleDelete(data)}
+                  className={classes.chip}
+                />
+              </div>
+            );
+
+          })}
+        </div>
+
       </div>
-    <div style={{display: "flex", flexWrap: "wrap", marginTop: 10}}>
-      {chipData.map((data, i) => {
-        return (
-          <div key={i}>
-            <Chip
-              label={data.label}
-              onDelete={handleDelete(data)}
-              className={classes.chip}
-            />
-          </div>
-        );
-
-      })}</div>
-
-    </div>
     </form>
   );
 }
