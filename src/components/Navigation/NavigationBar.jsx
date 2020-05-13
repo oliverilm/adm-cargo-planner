@@ -27,6 +27,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import InputIcon from '@material-ui/icons/Input';
 import shipments from "../../Storage";
 import Button from "@material-ui/core/Button";
+import { store } from 'react-notifications-component'
 
 const drawerWidth = 240;
 
@@ -37,6 +38,21 @@ const drawerWidth = 240;
  */
 const initialDataLoad = () => {
   return JSON.parse(localStorage.getItem("businesses"))
+}
+const addNotification = (title,message) => {
+  store.addNotification({
+    title: title,
+    message: message,
+    type: "success",
+    insert: "bottom",
+    container: "bottom-right",
+    animationIn: ["animated", "easeIn"],
+    animationOut: ["animated", "easeOut"],
+    dismiss: {
+      duration: 3000,
+      onScreen: true
+    }
+  });
 }
 
 function ResponsiveDrawer(props) {
@@ -49,6 +65,7 @@ function ResponsiveDrawer(props) {
 
   const savePressed = () => {
     localStorage.setItem("businesses", JSON.stringify(shipments.getShipments()))
+    addNotification("Saving data...", "Data was saved successfully")
   }
 
   const loadPressed = () => {
