@@ -57,7 +57,6 @@ export default function ChipsArray(props) {
 
   useEffect(() => {setChipData(calculateObjects(shipmentId)); getShipment(shipmentId).boxes = shipment.boxes === null ? "" : getShipment(shipmentId).boxes}, [shipment, shipmentId])
 
-
   /**
    * Delete an object from chipData array and update shipments in database.
    *
