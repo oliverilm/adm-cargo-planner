@@ -39,6 +39,13 @@ const drawerWidth = 240;
 const initialDataLoad = () => {
   return JSON.parse(localStorage.getItem("businesses"))
 }
+
+/**
+ * Add a notification to the home screen.
+ *
+ * @param {String} title
+ * @param {String} message
+ */
 const addNotification = (title,message) => {
   store.addNotification({
     title: title,
@@ -72,7 +79,8 @@ function ResponsiveDrawer(props) {
     shipments.setShipments(inputJson);
     localStorage.setItem("businesses", JSON.stringify(inputJson))
     setData(inputJson)
-    window.location.reload()
+    addNotification("Loading data...", "Data was loaded successfully")
+
   }
 
   const handleDrawerToggle = () => {
